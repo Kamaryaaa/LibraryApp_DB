@@ -38,13 +38,12 @@ public class Hooks {
 
     }
 
-    @Before("@db")
-    public void setupDB(){
-        System.out.println("Connecting to database...");
+    @Before ("@db")
+    public void setUpDB(){
+        System.out.println("Connecting to database .....");
         DB_Util.createConnection();
     }
-
-    @After("@db")
+    @After ("@db")
     public void closeDB(){
         System.out.println("Closing DB connection...");
         DB_Util.destroy();

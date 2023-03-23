@@ -41,6 +41,39 @@ public class DashboardStepDefs {
 
     @Then("the information should be same with database")
     public void the_information_should_be_same_with_database() {
+        //this scenario database result is expected.
+        //Connect the same database (library2)
+        //DB_Util.createConnection();// connection will happen in hooks class
+
+        //run query for each of the result(3 different queries)
+        //for books
+       DB_Util.runQuery("select count(*) from books");
+        String expectedBookNumbers = DB_Util.getFirstRowFirstColumn();
+        System.out.println("expectedBookNumbers = " + expectedBookNumbers);
+
+        //for users
+        DB_Util.runQuery("select count(*) from users");
+        String expectedUserNumbers = DB_Util.getFirstRowFirstColumn();
+        System.out.println("expectedUserNumbers = " + expectedUserNumbers);
+
+        //for borrowed books
+        DB_Util.runQuery("select count(*) from book_borrow\n" +
+                "where is_returned=0;");
+        String expectedBorrowedBookNumbers = DB_Util.getFirstRowFirstColumn();
+        System.out.println("expectedBorrowedBookNumbers = " + expectedBorrowedBookNumbers);
+
+
+
+        //compare result with UI result ( Actual result)
+        Assert.assertEquals(actualBookNumbers,expectedBookNumbers);
+        Assert.assertEquals(actualUserNumbers,expectedUserNumbers);
+        Assert.assertEquals(actualBorrowedBookNumbers,expectedBorrowedBookNumbers);
+        //                  come from UI                come from database
+
+
+        //close connection
+        //DB_Util.destroy();// close connection will happen in hooks class
+
 
 
 
