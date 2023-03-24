@@ -26,13 +26,13 @@ Feature: Book Category
       | Essay                   |
       | Memoir                  |
       | Poetry                  |
-   @db
+    @db
   Scenario: verify book categories with DB
     Given the user logged in as "librarian"
     When the user navigates to "Books" page
     And the user gets all book categories in webpage
     Then verify book categories must match book categories table from db
-  @db
+  @wip @db
   Scenario: Verify book information with db
     Given the user logged in as "librarian"
     And the user navigates to "Books" page

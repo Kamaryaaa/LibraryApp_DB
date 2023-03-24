@@ -7,6 +7,8 @@ import com.cydeo.utility.DB_Util;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -39,6 +41,15 @@ public class BooksStepDefs {
 
     }
 
+    @Then("verify book categories must match book categories table from db")
+    public void verify_book_categories_must_match_book_categories_table_from_db() {
+        DB_Util.runQuery("select name from book_categories");
+        List<String> expectedCatagoryList = DB_Util.getColumnDataAsList("name");
+        Assert.assertEquals(actualCategoryList,expectedCatagoryList);
+
+
+    }
+
 
     @When("I open book {string}")
     public void i_open_book(String bookName) {
@@ -49,21 +60,9 @@ public class BooksStepDefs {
 
     }
 
-    @Then("verify book categories must match book categories table from db")
-    public void verify_book_categories_must_match_book_categories_table_from_db() {
-        String query = "select name from book_categories";
-        //run query to get data from db
-        DB_Util.runQuery(query);
-        //store the information inside the list
-        List<String> expectedCategoryList = DB_Util.getColumnDataAsList(1);
-        System.out.println("expectedCategoryList = " + expectedCategoryList);
-        //compare UI vs DB
-        Assert.assertEquals("Verify category list is matching",actualCategoryList,expectedCategoryList);
-    }
-
     @Then("book information must match the database for {string}")
     public void book_information_must_match_the_database_for(String bookName) {
-        BrowserUtil.waitFor(3);
+
         //UI Steps
         //we need to get information from ui to compare with database
         //System.out.println("UI Bookname: "+bookPage.bookName.getText());
@@ -107,6 +106,27 @@ public class BooksStepDefs {
         Assert.assertEquals(bookPage.description.getAttribute("value"),bookInfo.get("description"));
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
 
 }
