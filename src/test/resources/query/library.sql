@@ -12,3 +12,7 @@ select name from book_categories;
 
 select * from books
 where name = 'Agile Testing';
+
+select full_name
+from users
+where email = 'librarian56@library';
